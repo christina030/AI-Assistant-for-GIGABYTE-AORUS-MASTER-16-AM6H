@@ -1,0 +1,384 @@
+ [System] 初始化檢索系統與 Embedding (CPU)...
+[Init] 建立 Vector Index...
+Loading weights: 100% 71/71 [00:00<00:00, 434.01it/s, Materializing param=pooler.dense.weight]BertModel LOAD REPORT from: BAAI/bge-small-zh-v1.5
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED	:can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[Init] 建立 BM25 Index...
+[Init] 建立 Hybrid Index...
+[System] 載入 LLM 模型至 GPU: ./models/qwen_1.5b_q8.gguf ...
+llama_context: n_ctx_seq (1024) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+
+--- 檢索演算法評測開始 (Hit Rate@2) ---
+
+==================================================
+[User]：這台筆電的 GPU 顯存是多少？
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：這台筆電的 GPU 顯存是 12GB GDDR7。
+[效能指標]：TTFT (首字延遲): 0.123 s | TPS (生成速度): 92.14 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：這台筆電的 GPU 显存為 24GB GDDR7。
+[效能指標]：TTFT (首字延遲): 0.047 s | TPS (生成速度): 94.05 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：這台筆電的 GPU 显存分別為 NVIDIA GeForce RTX™ 5090 Laptop GPU 24GB GDDR7、NVIDIA GeForce RTX™ 5080 Laptop GPU 16GB GDDR7 和 NVIDIA GeForce RTX™ 5070 Ti Laptop GPU 12GB GDDR7。
+[效能指標]：TTFT (首字延遲): 0.053 s | TPS (生成速度): 96.37 tokens/s
+
+
+==================================================
+[User]：How is the color gamut performance of the display?
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：The display's color gamut performance is supported by Pantone® Validated.
+[效能指標]：TTFT (首字延遲): 0.048 s | TPS (生成速度): 100.18 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：The display supports Pantone® Validated color gamut, ensuring precise color reproduction.
+[效能指標]：TTFT (首字延遲): 0.014 s | TPS (生成速度): 101.53 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：The Dark Tide color gamut performance of the display is excellent. It offers a wide range of colors, accurately reproducing a vast array of hues without loss of detail or saturation. This ensures vivid and lifelike colors are displayed throughout the screen.
+[效能指標]：TTFT (首字延遲): 0.024 s | TPS (生成速度): 101.01 tokens/s
+
+
+==================================================
+[User]：I/O 接口總共有幾個 Type-C？
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：總共有兩個 Type-C：一個在左側，支持 Thunderbolt 5，另一個在右側，支持 Thunderbolt 4。
+[效能指標]：TTFT (首字延遲): 0.052 s | TPS (生成速度): 99.61 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：總共有兩個 Type-C，一個在左側，一個在右側。
+[效能指標]：TTFT (首字延遲): 0.015 s | TPS (生成速度): 99.69 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：有兩個 Type-C，分別位於左側和右側。
+[效能指標]：TTFT (首字延遲): 0.050 s | TPS (生成速度): 94.94 tokens/s
+
+
+==================================================
+[User]：這台支援的最大記憶體頻率是多少？
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：這台硬體目前支援的最大記憶體頻率為 DDR5。
+[效能指標]：TTFT (首字延遲): 0.034 s | TPS (生成速度): 99.77 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：這個筆電支援的最大記憶體頻率為2400 MHz。
+[效能指標]：TTFT (首字延遲): 0.026 s | TPS (生成速度): 100.37 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：這台筆電支援的最大記憶體頻率是DDR4。
+[效能指標]：TTFT (首字延遲): 0.030 s | TPS (生成速度): 99.72 tokens/s
+
+
+==================================================
+[User]：這台筆電適合拿來做專業攝影修圖嗎？
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：這台筆電支援Windows Hello Face Authentication和NVIDIA G-SYNC，適合做專業攝影修圖。
+[效能指標]：TTFT (首字延遲): 0.052 s | TPS (生成速度): 96.97 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：這台筆電的重量較輕，對於進行專業攝影修圖工作來說，它可能是一個合適的選擇，但具體是否適合還是需要根據個人需求來決定。如果您需要大量運算和處理強大的圖像，可能需要考慮更強的性能。
+[效能指標]：TTFT (首字延遲): 0.026 s | TPS (生成速度): 100.40 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：這台筆電的 Webcam 設備可以用作攝影修圖時的預覽鏡頭，但對於專業攝影和編輯而言，可能需要更高的分辨率和視頻品質。建議您檢查筆電的影像編輯功能和軟體，並考慮是否適合您的需求。
+[效能指標]：TTFT (首字延遲): 0.031 s | TPS (生成速度): 96.60 tokens/s
+
+
+==================================================
+[User]：Can I connect two 4K external monitors to it?
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：Yes, the GIGABYTE product can connect two 4K external monitors.
+[效能指標]：TTFT (首字延遲): 0.032 s | TPS (生成速度): 100.22 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：Unfortunately, this computer does not have a display port or HDMI connector to connect external monitors directly. It requires an external monitor to be connected using a HDMI cable or a DisplayPort cable, and may only support up to 4K resolution.
+[效能指標]：TTFT (首字延遲): 0.033 s | TPS (生成速度): 100.13 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：No, the product does not support connecting two 4K external monitors. It only has one LAN port supporting 1G Ethernet.
+[效能指標]：TTFT (首字延遲): 0.036 s | TPS (生成速度): 101.35 tokens/s
+
+
+==================================================
+[User]：在全黑環境下打字方便嗎？
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：在全黑環境下打字可能會比較困難，因為光環境對視覺和手部動作的感知有很大的影響。然而，如果你的鍵盤具備3-zone RGB Backlit功能，並且支持N-Key无键操作，這將能提供一定的反光效果，使打字時更為方便。請根據你的具體情況進行選擇。
+[效能指標]：TTFT (首字延遲): 0.028 s | TPS (生成速度): 98.95 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：在全黑環境下打字可能會遇到一些問題，但這完全依個人習慣而定。如果你習慣在較亮的環境下打字，全黑環境可能會感到不太自在。如果你習慣在較暗的環境下打字，全黑環境可能會更加適合你。總體來說，全黑環境可以提高效率，但需要注意光的適應問題。
+[效能指標]：TTFT (首字延遲): 0.025 s | TPS (生成速度): 100.16 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：在全黑環境下打字可能會比較困難，建議使用RGB背光的鍵盤，這樣可以在暗光環境中提供明亮的打字環境。
+[效能指標]：TTFT (首字延遲): 0.029 s | TPS (生成速度): 97.50 tokens/s
+
+
+==================================================
+[User]：有支援最新的 Wi-Fi 7 嗎？
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：有，你的 GIGABYTE 筆電支援最新的 Wi-Fi 7 (802.11be 2x2)。
+[效能指標]：TTFT (首字延遲): 0.036 s | TPS (生成速度): 93.30 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：有，您購買的筆電支援最新的 Wi-Fi 7（802.11be），具有2x2的頻寬配置。
+[效能指標]：TTFT (首字延遲): 0.024 s | TPS (生成速度): 95.08 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：有，您的筆電支援最新的 Wi-Fi 7（802.11be 2x2）。
+[效能指標]：TTFT (首字延遲): 0.032 s | TPS (生成速度): 96.56 tokens/s
+
+
+==================================================
+[User]：How big is the battery capacity? Can it last long?
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：The battery capacity is 99Wh. This means it can last approximately 21 hours on a full charge, depending on your usage.
+[效能指標]：TTFT (首字延遲): 0.030 s | TPS (生成速度): 97.32 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：The battery capacity is 99Wh. According to standard battery life, it should be able to provide sufficient power for a long time under normal usage conditions.
+[效能指標]：TTFT (首字延遲): 0.029 s | TPS (生成速度): 95.47 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：The battery capacity is 99Wh. It can last a long time.
+[效能指標]：TTFT (首字延遲): 0.029 s | TPS (生成速度): 97.69 tokens/s
+
+
+==================================================
+[User]：這台筆電多重？每天背上下班會不會太累？
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：這台筆電的 CPU 是 Intel® Core™ Ultra 9 Processor 275HX，具備 24 處核心和 24 處線程，可以提供強大的處理性能。如果您在使用時需要極高的性能，可以考慮搭配其他高規格的 GPU 以提升圖像渲染速度或運行大型程式。如果您只是需要一般文字處理和辦公軟件的運行，這款 CPU 已足夠。建議您根據實際使用需求來選擇適合的 CPU。
+[效能指標]：TTFT (首字延遲): 0.039 s | TPS (生成速度): 90.21 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：這台筆電的重量約為2.5公斤，對於日常上下班來說，一般來說不太會感到太累。
+[效能指標]：TTFT (首字延遲): 0.030 s | TPS (生成速度): 97.98 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：這台筆電有3區RGB發光鍵盤，支持N-Key Rollover，可以根據需要調整鍵盤布局，減少不必要的按鍵頻繁，可以減輕背累。
+[效能指標]：TTFT (首字延遲): 0.029 s | TPS (生成速度): 92.81 tokens/s
+
+
+==================================================
+[User]：Does the webcam support Windows Hello face authentication?
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：Yes, the webcam supports Windows Hello face authentication.
+[效能指標]：TTFT (首字延遲): 0.031 s | TPS (生成速度): 97.56 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：Yes, the webcam supports Windows Hello face authentication.
+[效能指標]：TTFT (首字延遲): 0.016 s | TPS (生成速度): 99.97 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：Yes, the webcam supports Windows Hello face authentication.
+[效能指標]：TTFT (首字延遲): 0.028 s | TPS (生成速度): 99.05 tokens/s
+
+
+==================================================
+[User]：看電影的音效好嗎？有沒有杜比音效？
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：看電影的音效非常好，支持杜比音效。
+[效能指標]：TTFT (首字延遲): 0.052 s | TPS (生成速度): 95.73 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：這款筆電並沒有杜比音效。
+[效能指標]：TTFT (首字延遲): 0.027 s | TPS (生成速度): 98.36 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：看電影的音效表現非常好，支持杜比音效。
+[效能指標]：TTFT (首字延遲): 0.030 s | TPS (生成速度): 98.30 tokens/s
+
+
+==================================================
+[User]：處理器是用 Intel Ultra 還是 AMD 的？
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：處理器是 Intel Core Ultra 9 Processor 275HX。
+[效能指標]：TTFT (首字延遲): 0.035 s | TPS (生成速度): 100.10 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：處理器是 Intel® Core™ Ultra 9 Processor 275HX。
+[效能指標]：TTFT (首字延遲): 0.027 s | TPS (生成速度): 99.54 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：處理器是 Intel Ultra 9 Processor 275HX。
+[效能指標]：TTFT (首字延遲): 0.029 s | TPS (生成速度): 98.32 tokens/s
+
+
+==================================================
+[User]：它的 Storage 擴充性如何？支援幾條 NVMe？
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：這個筆電支援 PCIe Gen5 和 PCIe Gen4x4 M.2 存儲擴充性，最高可支援 4TB PCIe NVMe M.2 SSD。
+[效能指標]：TTFT (首字延遲): 0.034 s | TPS (生成速度): 96.84 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：這台筆電的 Storage 擴充性包括 1x PCIe Gen5 M.2 slot 和 1x PCIe Gen4x4 M.2 slots，最大支援容量為 4TB PCIe NVMe™ M.2 SSD。
+[效能指標]：TTFT (首字延遲): 0.024 s | TPS (生成速度): 96.74 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：您的GIGABYTE產品支持1個PCIe Gen5 M.2插槽，1個PCIe Gen4x4 M.2插槽，并提供最多4TB的PCIe NVMe M.2 SSD支持。
+[效能指標]：TTFT (首字延遲): 0.030 s | TPS (生成速度): 99.59 tokens/s
+
+[平均效能指標]：TTFT (首字延遲): 0.045 s | TPS (生成速度): 97.06 tokens/s
+[平均效能指標]：TTFT (首字延遲): 0.026 s | TPS (生成速度): 98.53 tokens/s
+[平均效能指標]：TTFT (首字延遲): 0.033 s | TPS (生成速度): 97.84 tokens/s
+Algorithm  | Hit Rate@2
+-------------------------
+Vector     |   71.4 % (10/14)
+BM25       |   57.1 % (8/14)
+Hybrid     |   57.1 % (8/14)
+
+--- 檢索演算法評測開始 (Hit Rate@2) ---
+
+==================================================
+[User]：ASUS ROG Strix 的散熱表現好嗎？
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：ASUS ROG Strix 的散熱表現非常出色，擁有強大的熱能管理系統，能夠有效提升效能並延長產品壽命。
+[效能指標]：TTFT (首字延遲): 0.073 s | TPS (生成速度): 95.36 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：ASUS ROG Strix 硬體的散熱表現在市場上相當不錯，能夠有效降低工作時的溫度，提供良好的使用體驗。
+[效能指標]：TTFT (首字延遲): 0.026 s | TPS (生成速度): 94.00 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：ASUS ROG Strix 是一款強勁的機器，其散熱表現優異。該系列產品通常配有強大的電力供應和高效的散熱技術，可以確保在高負荷情況下也能穩定運行。不過散熱表現還取決於具體的電力配置和環境條件，所以建議您參考產品的評測報告或在使用時注意檢查散熱效果。
+[效能指標]：TTFT (首字延遲): 0.050 s | TPS (生成速度): 97.23 tokens/s
+
+
+==================================================
+[User]：請問這台有附贈 AORUS 的電競滑鼠嗎？
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：抱歉，目前我沒有此資訊。
+[效能指標]：TTFT (首字延遲): 0.054 s | TPS (生成速度): 96.98 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：抱歉，我目前無法得知這款筆電是否附贈 AORUS 電競滑鼠。建議您在購買時確認附贈項目，或者訪問官方網站確認最新產品資訊。
+[效能指標]：TTFT (首字延遲): 0.035 s | TPS (生成速度): 100.00 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：抱歉，目前我們的GIGABYTE筆電並未附贈AORUS電競滑鼠。
+[效能指標]：TTFT (首字延遲): 0.029 s | TPS (生成速度): 99.80 tokens/s
+
+
+==================================================
+[User]：這台 AORUS MASTER 16 和一般的 MASTER 17 在螢幕上有什麼不同？
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：這兩款產品的主要差異在於螢幕大小。AORUS MASTER 16 的螢幕尺寸為 16.0 英寸，而一般的 MASTER 17 為 17 英寸。
+[效能指標]：TTFT (首字延遲): 0.054 s | TPS (生成速度): 85.50 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：AORUS MASTER 16 和一般的 MASTER 17 都是 GIGABYTE 系列的筆電，但是 AORUS MASTER 16 擁有以下特點：
+
+1. 擁有 OLED 显示屏，具有更高的清晰度和亮度，為您提供更好的視覺體驗。
+2. 擁有100% sRGB色彩範圍，提供更廣的色域。
+3. 支持NVIDIA G-SYNC技術，提供更穩定和更自然的畫面，避免拖尾和跳躍現象。
+4. 配備了DCI-P3色域，提供更豐富的色彩。
+5. 擁有1000000:1的对比度，為您提供更明亮和鮮艷的畫面。
+6. 支持VESA ClearMR 10000，為您的視頻編輯提供更好的畫質。
+7. 擁有Pantone Validated，確保色彩準確性。
+8. 擁有Dolby Vision，提供更好的色彩和音效體驗。
+9. 配備了VESA DisplayHDR True Black 500，提供
+[效能指標]：TTFT (首字延遲): 0.052 s | TPS (生成速度): 88.69 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：AORUS MASTER 16 和 MASTER 17 在螢幕方面的差異包括：
+- AORUS MASTER 16 搭載了 16.0 英寸的 16:10 比例螢幕，而 MASTER 17 原本就是 16:10 比例。
+- AORUS MASTER 16 設定為 OLED WQXGA (2560×1600) 240Hz，而 MASTER 17 原本就是 OLED WQXGA (2560×1600) 240Hz。
+- AORUS MASTER 16 搭載了 NVIDIA G-SYNC 技術，而 MASTER 17 原本就是 NVIDIA G-SYNC 技術。
+- AORUS MASTER 16 原本就是 VESA DisplayHDR True Black 500、VESA ClearMR 10000 和 Pantone® Validated。
+- AORUS MASTER 16 原本就是 Dolby Vision。
+[效能指標]：TTFT (首字延遲): 0.054 s | TPS (生成速度): 82.90 tokens/s
+
+
+==================================================
+[User]：What is the official retail price of this AORUS laptop?
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：I'm sorry, but I cannot provide the official retail price of a specific AORUS laptop model without additional information such as the model number and region. Please provide more details, and I'll be happy to help you.
+[效能指標]：TTFT (首字延遲): 0.032 s | TPS (生成速度): 93.61 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：I'm sorry, but I don't have the specific retail price information for the AORUS laptop. This information usually varies depending on the region and retailer. I suggest checking the official website or authorized retailer for the most accurate price.
+[效能指標]：TTFT (首字延遲): 0.047 s | TPS (生成速度): 99.33 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：The AORUS laptop is a high-performance gaming laptop. While exact retail prices can vary depending on the country, a general estimate for the AORUS series would be around $1,200 to $1,500 USD. The price can be influenced by additional components such as RAM, SSD, and keyboard. Please check the official website or authorized retailers for the most accurate and up-to-date price.
+[效能指標]：TTFT (首字延遲): 0.049 s | TPS (生成速度): 97.95 tokens/s
+
+
+==================================================
+[User]：主機板是幾相供電的？
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：主機板是2相供電的。
+[效能指標]：TTFT (首字延遲): 0.052 s | TPS (生成速度): 96.65 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：主機板是3相供電的。
+[效能指標]：TTFT (首字延遲): 0.028 s | TPS (生成速度): 100.47 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：這是GIGABYTE的M.2 SSD支援NVMe的規格嗎？
+[效能指標]：TTFT (首字延遲): 0.028 s | TPS (生成速度): 99.31 tokens/s
+
+
+==================================================
+[User]：他可以擴充嗎？
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：可以的，他有2x SO-DIMM sockets for expansion，可以擴充。
+[效能指標]：TTFT (首字延遲): 0.024 s | TPS (生成速度): 98.81 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：不可以擴充。GIGABYTE Dark Tide 笔电是一款筆電，不支持外接硬體擴充。
+[效能指標]：TTFT (首字延遲): 0.025 s | TPS (生成速度): 97.02 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：可以擴充，支援2x SO-DIMM sockets。
+[效能指標]：TTFT (首字延遲): 0.029 s | TPS (生成速度): 100.39 tokens/s
+
+
+==================================================
+[User]：Is it good?
+--------------------------------------------------
+[檢索方法]：Vector
+[Assistant]：Yes, the 330W AC Adapter is a high-power adapter that can provide ample power for your device, making it an ideal choice for users who need a reliable power source.
+[效能指標]：TTFT (首字延遲): 0.026 s | TPS (生成速度): 100.26 tokens/s
+
+[檢索方法]：BM25
+[Assistant]：The product you're asking about is a GIGABYTE pen drive with the Dark Tide color. It weighs approximately 2.5 kg.
+[效能指標]：TTFT (首字延遲): 0.025 s | TPS (生成速度): 99.86 tokens/s
+
+[檢索方法]：Hybrid
+[Assistant]：It's a 330W AC Adapter. If you need more detailed information or assistance, feel free to ask.
+[效能指標]：TTFT (首字延遲): 0.024 s | TPS (生成速度): 100.02 tokens/s
+
+[平均效能指標]：TTFT (首字延遲): 0.045 s | TPS (生成速度): 95.31 tokens/s
+[平均效能指標]：TTFT (首字延遲): 0.034 s | TPS (生成速度): 97.05 tokens/s
+[平均效能指標]：TTFT (首字延遲): 0.038 s | TPS (生成速度): 96.80 tokens/s
+Algorithm  | Hit Rate@2
+-------------------------
+Vector     |    0.0 % (0/7)
+BM25       |    0.0 % (0/7)
+Hybrid     |    0.0 % (0/7)
