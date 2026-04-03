@@ -17,34 +17,44 @@ uv sync
 
 下載 1.5B ~ 3B 級別的 GGUF 量化模型：
 
-```mkdir -p models```
+```
+mkdir -p models
+```
 
 * Qwen2.5-3B-Instruct (Q4_K_M)
 > 參數較大，但被量化到 4-bit。推論能力強，檔案約 2.15GB。
 
-```wget https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf -O ./models/qwen_3b_q4.gguf```
+```
+wget https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf -O ./models/qwen_3b_q4.gguf
+```
 
 * Qwen2.5-1.5B-Instruct (Q8_0)
 > 參數砍半，但保留 8-bit 高精度權重。檔案約 1.7GB。
 
-```wget https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/qwen2.5-1.5b-instruct-q8_0.gguf -O ./models/qwen_1.5b_q8.gguf```
+```
+wget https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/qwen2.5-1.5b-instruct-q8_0.gguf -O ./models/qwen_1.5b_q8.gguf
+```
 
 * Llama-3.2-3B-Instruct (Q4_K_M)
 > 作為跨架構對照組，測試不同模型家族在繁體中文規格問答上的表現。
 
-```wget https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q4_K_M.gguf -O ./models/llama_3b_q4.gguf```
+```
+wget https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q4_K_M.gguf -O ./models/llama_3b_q4.gguf
+```
 
 ### 3. 執行
 
-```python main.py```
+```
+python main.py
+```
 
 ## 📊 結果分析
 
 ### 模型選擇（如何符合 4GB 限制）：
 
-1. **選用輕量級 Embedding 模型：**選擇`BAAI/bge-small-zh-v1.5`作為文本向量化模型（體積小、載入速度快）。
+* 選用輕量級 Embedding 模型：選擇`BAAI/bge-small-zh-v1.5`作為文本向量化模型（體積小、載入速度快）。
 
-2. 選用 1.5B ~ 3B 的 GGUF 量化模型：降低模型參數在 VRAM 所佔用的空間。
+* 選用 1.5B ~ 3B 的 GGUF 量化模型：降低模型參數在 VRAM 所佔用的空間。
 
 ### 評測結果分析：
 
@@ -78,18 +88,20 @@ mix_test_cases = [
 ]
 ```
 
-1. 定量指標：推論效能
+#### 1. 定量指標：推論效能
 
 * TTFT (首字延遲, Time To First Token)：各題目的首字延遲大多落在 0.02 秒至 0.15 秒之間。
 
 * TPS (生成速度, Tokens Per Second)：生成速度可達 50 ~ 80 tokens/s，部分測試中甚至高達 90 ~ 100 tokens/s。
 
 | 模型配置 | 檔案大小 | VRAM | 峰值 | 平均 TTFT (s) | 平均 TPS (tokens/s) | 表現 |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | Qwen2.5-3B-Instruct (Q4_K_M) | 1.96 GB | ~2.3 GB | 0.063 | 72.58 | 平衡首選：在 4GB 限制下完美運行，參數較大使得對上下文的理解與繁體中文生成的邏輯性最佳。生成速度依然遠超人類閱讀速度。 |
 | Qwen2.5-1.5B-Instruct (Q8_0)  | 1.76 GB | ~2.0 GB | 0.036s | 97.10 | 極致流暢：使用 8-bit 高精度量化，雖然參數較少但保留了極佳的模型原始權重。反應時間最短，生成速度最快，適合需要即時回應的場景。 |
 | Llama-3.2-3B-Instruct (Q4_K_M)  | 1.88 GB | ~2.6 GB | 0.060s | 63.76 | 穩定輸出：效能指標與 Qwen 3B 非常接近，同屬 3B 級別的優秀選擇。首字延遲低於 Qwen 3B，但在繁體中文語境的在地化表現可能因任務而異。 |
 
-2. 定性分析：RAG Pipeline 效果評估
+#### 2. 定性分析：RAG Pipeline 效果評估
+
 比較三種檢索方法的 Top-2 命中率表現：
 
 * 純向量檢索
@@ -105,6 +117,7 @@ mix_test_cases = [
 > 在此次測試中，Hybrid 混合檢索的表現僅與 BM25 持平，並未發揮出「截長補短」的優勢。這可能表示 BM25 的雜訊干擾了排序，未來可針對兩種演算法的分數權重（Alpha 值）進行進一步的調優與正規化。
 
 | 檢索演算法 | Top-2 命中率 | 平均 TTFT (s) | 平均 TPS (tokens/s) |
+| ------------- | ------------- | ------------- | ------------- |
 | Vector (向量檢索) | 71.4 % (10/14) | 0.051 | 77.17 |
 | BM25 (關鍵字檢索) | 57.1 % (8/14) | 0.041 | 78.25 |
 | Hybrid (混合檢索) | 57.1 % (8/14) | 0.034 | 77.56 |
