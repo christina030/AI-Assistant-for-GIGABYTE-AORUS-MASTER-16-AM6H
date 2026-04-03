@@ -249,6 +249,8 @@ class AorusAssistant:
 
         # 評測
         results = {"Vector": 0, "BM25": 0, "Hybrid": 0}
+        ttft_results = {"Vector": 0, "BM25": 0, "Hybrid": 0}
+        tps_results = {"Vector": 0, "BM25": 0, "Hybrid": 0}
 
         print("\n--- 檢索演算法評測開始 (Hit Rate@2) ---")
         for query, expected_key in test_cases:
@@ -311,11 +313,17 @@ class AorusAssistant:
                 generation_time = end_time - first_token_time if first_token_time else 0
                 tps = (token_count - 1) / generation_time if generation_time > 0 else 0
 
+                ttft_results[k] += ttft
+                tps_results[k] += tps
+
                 print(f"[效能指標]：TTFT (首字延遲): {ttft:.3f} s | TPS (生成速度): {tps:.2f} tokens/s")
                 print()
 
         # 4. 輸出結果
         total = len(test_cases)
+        for k in ["Vector", "BM25", "Hybrid"]:
+            print(f"[平均效能指標]：TTFT (首字延遲): {(ttft_results[k] / total):.3f} s | TPS (生成速度): {(tps_results[k] / total):.2f} tokens/s")
+        print(f"{'Algorithm':<10} | {'Hit Rate@2':<10}")
         print(f"{'Algorithm':<10} | {'Hit Rate@2':<10}")
         print("-" * 25)
         for algo, hits in results.items():
