@@ -27,7 +27,7 @@ mkdir -p models
 ```
 
 * Qwen2.5-3B-Instruct (Q4_K_M)
-> 參數較大，但被量化到 4-bit。推論能力強，檔案約 2.15GB。
+> 參數較大，但被量化到 4-bit。推論能力強，檔案約 2GB。
 
 ```
 wget https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf -O ./models/qwen_3b_q4.gguf
