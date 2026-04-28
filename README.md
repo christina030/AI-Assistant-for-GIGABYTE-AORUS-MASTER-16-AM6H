@@ -1,5 +1,9 @@
 # AI-Assistant-for-GIGABYTE-AORUS-MASTER-16-AM6H
 
+## 📄 資料來源
+
+[GIGABYTE AORUS MASTER 16 AM6H](https://www.gigabyte.com/tw/Laptop/AORUS-MASTER-16-AM6H/sp)
+
 ## 🚀 啟動步驟
 
 本專案使用 [uv](https://github.com/astral-sh/uv) 進行極速的 Python 套件管理。
